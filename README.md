@@ -9,6 +9,6 @@
 
 https://ko.reactjs.org/docs/components-and-props.html
 
-### 2. props
+### 2. props와 state
 
 props는 함수 컴포넌트의 input 데이터를 가진 객체 인자이고, 속성을 나타내는 데이터라고 할 수 있다. 

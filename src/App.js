@@ -30,11 +30,11 @@ class App extends Component {
   }
 
   // TOC Click Handler
-  handleTOCClick = (id, e) => {
+  handleTOCClick = (e) => {
     e.preventDefault();
     this.setState({
       mode: 'read',
-      selected_content_id: id  // dataset 속성으로 데이터를 삽입할 때, 문자열로 형변환이 이루어짐
+      selected_content_id: Number(e.target.dataset.id)  // 파라미터들은 문자열로 형변환됨
     });
   }
   

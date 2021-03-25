@@ -4,14 +4,13 @@ class TOC extends Component {
     render() {
       console.log("TOC render");
 
-      var lists = [];
-      var data = this.props.data;
-      var i = 0;
+      let lists = [];
+      let data = this.props.data;
 
-      while (i < data.length) {
-        lists.push(<li key={data[i].id}><a href={"./content/" + data[i].id}>{data[i].title}</a></li>);
-        i = i + 1;
-      }
+      data.forEach(e => {
+        // dataset 속성으로 데이터를 삽입할 때, 문자열로 형변환이 이루어짐 data-id={e.id}
+        lists.push(<li key={e.id}><a href="/" onClick={this.props.handleClick(e.id)}>{e.title}</a></li>);
+      });
 
       return (
         <nav>

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Subject from './components/Subject';
 import TOC from './components/TOC';
 import Content from './components/Content';
+import Control from './components/Control';
 
 class App extends Component {
   
@@ -30,11 +31,11 @@ class App extends Component {
   }
 
   // TOC Click Handler
-  handleTOCClick = (e) => {
-    e.preventDefault();
+  handleTOCClick = (id) => {
+    // e.preventDefault();
     this.setState({
       mode: 'read',
-      selected_content_id: Number(e.target.dataset.id)  // 파라미터들은 문자열로 형변환됨
+      selected_content_id: Number(id)  // 파라미터들은 문자열로 형변환됨, 이벤트 파라미터로 받을 때 e.target.dataset.id
     });
   }
   
@@ -63,6 +64,7 @@ class App extends Component {
     return (
       <div className="App">
         <Subject title={this.state.subject.title} sub={this.state.subject.sub} handleClick={this.handleSubjectClick}></Subject>
+        <Control></Control>
         <TOC data={this.state.contents} handleClick={this.handleTOCClick}></TOC>
         <Content title={_title} desc={_desc}></Content>
       </div>

@@ -6,18 +6,18 @@ import Content from './components/Content';
 import Control from './components/Control';
 
 class App extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
       mode: 'welcome',  // 현재 페이지가 welcome 페이지인지 read 페이지인지 구분하기 위한 구분자
       selected_content_id: 1,
-      subject:{title: 'WEB', sub: 'world wide WEB!'},
-      welcome:{title: 'Welcome', desc: 'Hello React!'},
-      contents:[
-        {id: 1, title: 'HTML', desc: 'HTML is for information'},
-        {id: 2, title: 'CSS', desc: 'CSS is for design'},
-        {id: 3, title: 'JavaScript', desc: 'JavaScript is for interactive'}
+      subject: { title: 'WEB', sub: 'world wide WEB!' },
+      welcome: { title: 'Welcome', desc: 'Hello React!' },
+      contents: [
+        { id: 1, title: 'HTML', desc: 'HTML is for information' },
+        { id: 2, title: 'CSS', desc: 'CSS is for design' },
+        { id: 3, title: 'JavaScript', desc: 'JavaScript is for interactive' }
       ]
     }
   }
@@ -38,17 +38,28 @@ class App extends Component {
       selected_content_id: Number(id)  // 파라미터들은 문자열로 형변환됨, 이벤트 파라미터로 받을 때 e.target.dataset.id
     });
   }
-  
+
+  // Control click Handler
+  changeControl = (e) => {
+    e.preventDefault();
+    this.setState({
+      mode: e.target.dataset.mode
+    });
+  }
+
   render() {
     console.log("App render");
 
-    let _title, _desc = null;
+    let _title, _desc, _mode = null;
     if (this.state.mode === 'welcome') {
+      _mode = this.state.mode;
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
 
     } else if (this.state.mode === 'read') {
       try {
+        _mode = this.state.mode;
+
         let data = this.state.contents.filter(x => {      // array.filter() 유용
           return x.id === this.state.selected_content_id;
         });
@@ -59,14 +70,16 @@ class App extends Component {
       } catch (e) {
         console.log(e.stack);
       }
+    } else if (this.state.mode === 'create') {
+      _mode = this.state.mode;
     }
 
     return (
       <div className="App">
         <Subject title={this.state.subject.title} sub={this.state.subject.sub} handleClick={this.handleSubjectClick}></Subject>
-        <Control></Control>
+        <Control handleControl={this.changeControl}></Control>
         <TOC data={this.state.contents} handleClick={this.handleTOCClick}></TOC>
-        <Content title={_title} desc={_desc}></Content>
+        <Content mode={_mode} title={_title} desc={_desc}></Content>
       </div>
     );
   }

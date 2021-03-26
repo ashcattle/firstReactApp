@@ -7,9 +7,9 @@ class Control extends Component {
         return (
             <nav>
                 <ul>
-                    <li key="1"><a href="/">create</a></li>
-                    <li key="2"><a href="/">update</a></li>
-                    <li key="3"><a href="/">delete</a></li>
+                    <li key={1}><a href="/" data-mode="create" onClick={this.props.handleControl}>create</a></li>
+                    <li key={2}><a href="/" data-mode="update">update</a></li>
+                    <li key={3}><a href="/" data-mode="delete">delete</a></li>
                 </ul>
             </nav>
         );

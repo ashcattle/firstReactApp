@@ -5,20 +5,26 @@ class CreateContent extends Component {
         console.log("CreateContent render");
 
         return (
-            <article>
+            <div>
                 <h2>Create</h2>
-                <form action="/" method="post">
+                <form action="/create_process" method="post" 
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            alert("Submit!");
+                            let data = { id: null, title: e.target.title.value, desc: e.target.desc.value }
+                            this.props.onSubmit(data);
+                        }}>
                     <p>
                         <input type="text" name="title" placeholder="title" />
                     </p>
                     <p>
-                        <input type="text" name="desc" placeholder="desc" />
+                        <textarea name="desc" placeholder="description"></textarea>
                     </p>
                     <p>
                         <input type="submit" />
                     </p>
                 </form>
-            </article>
+            </div>
         );
     }
 }

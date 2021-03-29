@@ -11,15 +11,28 @@ class App extends Component {
     super(props);
     this.state = {
       mode: 'welcome',  // 현재 페이지가 welcome 페이지인지 read 페이지인지 구분하기 위한 구분자
-      selected_content_id: 1,
+      selected_content_id: 0,
       subject: { title: 'WEB', sub: 'world wide WEB!' },
       welcome: { title: 'Welcome', desc: 'Hello React!' },
       contents: [
-        { id: 1, title: 'HTML', desc: 'HTML is for information' },
-        { id: 2, title: 'CSS', desc: 'CSS is for design' },
-        { id: 3, title: 'JavaScript', desc: 'JavaScript is for interactive' }
+        { id: 0, title: 'HTML', desc: 'HTML is for information' },
+        { id: 1, title: 'CSS', desc: 'CSS is for design' },
+        { id: 2, title: 'JavaScript', desc: 'JavaScript is for interactive' }
       ]
     }
+  }
+
+  render() {
+    console.log("App render");
+
+    return (
+      <div className="App">
+        <Subject title={this.state.subject.title} sub={this.state.subject.sub} handleClick={this.handleSubjectClick}></Subject>
+        <Control handleControl={this.handleControlClick}></Control>
+        <TOC data={this.state.contents} handleClick={this.handleTOCClick}></TOC>
+        <Content data={this.state} onSubmit = {this.onSubmit}></Content>
+      </div>
+    );
   }
 
   // Subject Click Handler
@@ -40,48 +53,33 @@ class App extends Component {
   }
 
   // Control click Handler
-  changeControl = (e) => {
+  handleControlClick = (e) => {
     e.preventDefault();
     this.setState({
       mode: e.target.dataset.mode
     });
   }
 
-  render() {
-    console.log("App render");
+  // Create and Update submit
+  onSubmit = (data) => {
+    let content = data;
 
-    let _title, _desc, _mode = null;
-    if (this.state.mode === 'welcome') {
-      _mode = this.state.mode;
-      _title = this.state.welcome.title;
-      _desc = this.state.welcome.desc;
+    if (content.id == null) {
+      content.id = this.state.contents.length;
+      const newArr = [...this.state.contents, content];
+      this.setState({
+        contents: newArr
+      });
 
-    } else if (this.state.mode === 'read') {
-      try {
-        _mode = this.state.mode;
-
-        let data = this.state.contents.filter(x => {      // array.filter() 유용
-          return x.id === this.state.selected_content_id;
-        });
-
-        _title = data[0].title;
-        _desc = data[0].desc;
-
-      } catch (e) {
-        console.log(e.stack);
-      }
-    } else if (this.state.mode === 'create') {
-      _mode = this.state.mode;
+    } else {
+      const newArr = [...this.state.contents.slice(0, content.selected_content_id-1), 
+                      content, 
+                      ...this.state.contents.slice(content.id+1, this.state.contents.length-1)];
+      
+      this.setState({
+        contents: newArr
+      });
     }
-
-    return (
-      <div className="App">
-        <Subject title={this.state.subject.title} sub={this.state.subject.sub} handleClick={this.handleSubjectClick}></Subject>
-        <Control handleControl={this.changeControl}></Control>
-        <TOC data={this.state.contents} handleClick={this.handleTOCClick}></TOC>
-        <Content mode={_mode} title={_title} desc={_desc}></Content>
-      </div>
-    );
   }
 }
 

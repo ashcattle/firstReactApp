@@ -5,10 +5,10 @@ class ReadContent extends Component {
         console.log("ReadContent render");
 
         return (
-            <article>
+            <div>
                 <h2>{this.props.title}</h2>
                 {this.props.desc}
-            </article>
+            </div>
         );
     }
 }

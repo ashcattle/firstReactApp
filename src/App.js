@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
     this.state = {
       mode: 'welcome',  // 현재 페이지가 welcome 페이지인지 read 페이지인지 구분하기 위한 구분자
-      selected_content_id: 0,
+      selected_content_id: null,
       subject: { title: 'WEB', sub: 'world wide WEB!' },
       welcome: { title: 'Welcome', desc: 'Hello React!' },
       contents: [
@@ -39,7 +39,8 @@ class App extends Component {
   handleSubjectClick = (e) => {
     e.preventDefault(); // preventDefault() 함수는 태그의 기본 동작을 정지시킨다. 해당 태그를 클릭할 때 페이지가 이동하지 않을 것
     this.setState({
-      mode: 'welcome'
+      mode: 'welcome',
+      selected_content_id: null
     });
   }
 
@@ -51,15 +52,38 @@ class App extends Component {
     });
   }
 
-  // Control click Handler
+  // Control Click Handler
   handleControlClick = (e) => {
     e.preventDefault();
+
+    if (e.target.dataset.mode !== "create" && this.state.selected_content_id == null) {
+      alert("항목을 선택해주세요.");
+      return;
+    }
+
+    if (e.target.dataset.mode === "delete") {
+      this.deleteControl();
+      return;
+    }
+
     this.setState({
       mode: e.target.dataset.mode
     });
   }
 
-  // Create and Update submit
+  // Delete Event
+  deleteControl = () => {
+    const newArr = [...this.state.contents.slice(0, this.state.selected_content_id),
+                    ...this.state.contents.slice(this.state.selected_content_id+1, this.state.contents.length)];
+    
+    this.setState({
+      mode: 'welcome',
+      selected_content_id: null,
+      contents: newArr
+    });
+  }
+
+  // Create and Update Submit
   onSubmit = (content) => {
     let newArr = null;
 
@@ -72,8 +96,6 @@ class App extends Component {
                 content, 
                 ...this.state.contents.slice(content.id+1, this.state.contents.length)];
     }
-
-    console.log(newArr);
 
     this.setState({
       mode: 'read',

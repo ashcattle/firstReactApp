@@ -39,9 +39,9 @@ React 엘리먼트에서 이벤트를 처리하는 방식은 기존의 DOM 엘�
 ### 5. Component의 생명주기 메서드
 
 > #### 5-1. render()
-> 클래스 컴포넌트에 반드시 구현되어야 하는 유일한 메서드이다. 
-> [React 엘리먼트, 배열과 fragment, Portal(별도의 DOM 하위 트리에 자식 엘리먼트), 문자열과 숫자, boolean 혹은 null] 등의 값들 중 반드시 하나를 반환한다.
-> render() 메서드는 가능하면 순수해야 하므로 컴포넌트의 state를 변경하지 않고, 호출될 때마다 동일한 결과를 반환해야 하며, 브라우저와 직접적으로 상호작용을 하지 않아야 한다.
+> - 클래스 컴포넌트에 반드시 구현되어야 하는 유일한 메서드이다. 
+> - [React 엘리먼트, 배열과 fragment, Portal(별도의 DOM 하위 트리에 자식 엘리먼트), 문자열과 숫자, boolean 혹은 null] 등의 값들 중 반드시 하나를 반환한다.
+> - render() 메서드는 가능하면 순수해야 하므로 컴포넌트의 state를 변경하지 않고, 호출될 때마다 동일한 결과를 반환해야 하며, 브라우저와 직접적으로 상호작용을 하지 않아야 한다.
 
 > #### 5-2. constructor()
 
@@ -52,8 +52,8 @@ React 엘리먼트에서 이벤트를 처리하는 방식은 기존의 DOM 엘�
 > #### 5-5. componentWillUnmount()
 
 > #### 5-. shouldComponentUpdate()
-> https://ko.reactjs.org/docs/react-component.html#shouldcomponentupdate
-> shouldComponentReact() 메서드는 컴포넌트의 현재 state 혹은 props가 새로운 값으로 갱신되어 렌더링이 발생하기 직전에 호출되는 메서드이다.
+> - https://ko.reactjs.org/docs/react-component.html#shouldcomponentupdate
+> - shouldComponentReact() 메서드는 컴포넌트의 현재 state 혹은 props가 새로운 값으로 갱신되어 렌더링이 발생하기 직전에 호출되는 메서드이다.
 > 즉, 현재 state 또는 props의 변화가 컴포넌트의 출력 결과에 영향을 미치는지 여부를 React가 알 수 있다.
-> 기본값은 true이며, false를 반환하면 해당 컴포넌트의 갱신 작업을 건너뛸 수 있게 된다. 그리고 이 함수는 초기 렌더링에는 호출되지 않는다.
-> 이 메서드는 오직 성능 최적화를 위한 것으로, 가능하면 직접 작성하는 대신 props와 state에 대한 얕은 비교를 통해 false를 반환하는 정도의 얕은 비교가 적당하다.
+> - 기본값은 true이며, false를 반환하면 해당 컴포넌트의 갱신 작업을 건너뛸 수 있게 된다. 그리고 이 함수는 초기 렌더링에는 호출되지 않는다.
+> - 이 메서드는 오직 성능 최적화를 위한 것으로, 가능하면 직접 작성하는 대신 props와 state에 대한 얕은 비교를 통해 false를 반환하는 정도의 얕은 비교가 적당하다.

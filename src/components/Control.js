@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
 class Control extends Component {
+    shouldComponentUpdate() {
+        console.log("========== shouldComponentUpdate Control ============");
+        return false;
+      }
+
     render() {
         console.log("Control render");
 

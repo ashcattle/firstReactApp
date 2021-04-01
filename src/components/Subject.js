@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 class Subject extends Component { // subject라는 태그를 정의한 컴포넌트
     shouldComponentUpdate() {
-        console.log("========== shouldComponentUpdate Subject ============");
         return false;
       }
 

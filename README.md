@@ -1,6 +1,6 @@
 ## React 학습 프로젝트
 
-생활코딩님의 강의와 React 공식 문서를 통한 학습
+React 공식 문서를 통한 학습
 
 https://ko.reactjs.org/docs/getting-started.html
 
@@ -120,4 +120,35 @@ function WelcomeDialog() {
   );
 }
 ```
-> 위의 예시에서 Board 태그 안에 있는 내용들이 Board 컴포넌트의 children prop으로 전달된다. 즉, Board 컴포넌트의 <div> 안에서 모든 children prop들을 랜더링한다.
+> 위의 예시에서 Board 태그 안에 있는 내용들이 Board 컴포넌트의 children prop으로 전달된다. 즉, Board 컴포넌트의 ```<div>``` 안에서 모든 children prop들을 랜더링한다.
+
+> #### 8-2. 특수화
+> 어떤 컴포넌트의 '특수한 경우'인 컴포넌트를 고려해야 하는 경우가 있다. 예를 들어 '질문게시판(QuestionBoard)'는 '게시판(Board)'의 특수한 경우라고 할 수 있다.
+> React에서는 합성을 통해 해결한다. 더 '구체적인' 컴포넌트가 '일반적인' 컴포넌트를 랜더링하고 props를 통해 내용을 구성한다. 위의 예시를 이용하면 '질문게시판' 컴포넌트를 통해 '게시판' 컴포넌트를 랜더링하고, '게시판'의 props를 통해 내용을 구성하게 된다.
+
+```javascript
+function Board(props) {
+  return (
+    <QuestionBoard color="blue">
+      <h1 className="Board-title">
+        {props.title}
+      </h1>
+      <p className="Board-message">
+        {props.message}
+      </p>
+    </QuestionBoard>
+  );
+}
+
+function QuestionBoard() {
+  return (
+    <Board
+      title="Hello!"
+      message="React Composition" />
+  );
+}
+```
+
+> 합성은 위의 예시와 같은 구조를 갖는다고 할 수 있다.
+
+React에서는 여러 컴포넌트에서 재사용하기 원하는 기능이 있다면, 별도의 Javascript 모듈로 분리하여 사용하는 것이 권장되므로, 상속 계층 구조로 작성할 필요가 없다고 할 수 있다.
